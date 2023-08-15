@@ -22,6 +22,18 @@ class PyEon():
     Alignment: Alinhamento da data (B: Primeiro dia do mês, E: Ultimo dia do mês e S: Mesmo dia de referencia).
 
     """
+    def __init__(self, Interval, Date, Increment, Alignment):
+  
+        self._Interval = Interval
+        # self._Date = Date
+        self._Increment = Increment
+        self._Alignment = Alignment
+        self._EndDate = ''
+ 
+        if type(Date) == str:        
+            self._Date = datetime.strptime(Date, '%Y-%m-%d')
+        else:
+            self._Date =  datetime.combine(Date, datetime.min.time())
 
     def getDates(self):
         """ getDates: Método que trás o dia de forma corrente YYYY-MM-DD """
