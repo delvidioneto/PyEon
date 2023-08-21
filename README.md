@@ -23,8 +23,8 @@ print('M1_anomes:', M1_anomes)
 ```
 # Mesmo dia 12 meses anteriores a data atual
 ```
-12M = pe.PyEon('MONTH', dia_atual, -12,'S').getDates()
-12M_anomes = pe.PyEon('MONTH',dia_atual, -12,'S').getAnoMes()
+M12 = pe.PyEon('MONTH', dia_atual, -12,'S').getDates()
+M12_anomes = pe.PyEon('MONTH',dia_atual, -12,'S').getAnoMes()
 
 print('M1_dia:', M1)
 print('M1_anomes:', M1_anomes)
@@ -32,7 +32,7 @@ print('M1_anomes:', M1_anomes)
 
 # 2 anos anterior da data atual com o ultimo dia do mês
 ```
-2Y = pe.PyEon('YEAR', dia_atual, -2,'E').getDates()
-2Y_anomes = pe.PyEon('YEAR',dia_atual, -2,'E').getAnoMes()
+Y2 = pe.PyEon('YEAR', dia_atual, -2,'E').getDates()
+Y2_anomes = pe.PyEon('YEAR',dia_atual, -2,'E').getAnoMes()
 
 ```
