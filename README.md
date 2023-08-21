@@ -2,8 +2,11 @@
 Função pratica para manipulação de datas.
 
 Exemplo de utilização:
+
+# Importando os pacotes e criando a variavem de dia atual para manipulação.
+
 ```
-import pyDateManipulation.PyEon as pe
+import PyEon.PyEon as pe
 from datetime import date 
 
 dia_atual = date.today()
@@ -18,10 +21,10 @@ M1_anomes = pe.PyEon('MONTH',dia_atual, 1,'B').getAnoMes()
 print('M1_dia:', M1)
 print('M1_anomes:', M1_anomes)
 ```
-# o mesmo dia 12 meses anterior da data atual
+# Mesmo dia 12 meses anteriores a data atual
 ```
-M1 = pe.PyEon('MONTH', dia_atual, -12,'S').getDates()
-M1_anomes = pe.PyEon('MONTH',dia_atual, -12,'S').getAnoMes()
+12M = pe.PyEon('MONTH', dia_atual, -12,'S').getDates()
+12M_anomes = pe.PyEon('MONTH',dia_atual, -12,'S').getAnoMes()
 
 print('M1_dia:', M1)
 print('M1_anomes:', M1_anomes)
@@ -29,6 +32,7 @@ print('M1_anomes:', M1_anomes)
 
 # 2 anos anterior da data atual com o ultimo dia do mês
 ```
-M1 = pe.PyEon('YEAR', dia_atual, -2,'E').getDates()
-M1_anomes = pe.PyEon('YEAR',dia_atual, -2,'E').getAnoMes()
+2Y = pe.PyEon('YEAR', dia_atual, -2,'E').getDates()
+2Y_anomes = pe.PyEon('YEAR',dia_atual, -2,'E').getAnoMes()
+
 ```
