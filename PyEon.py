@@ -69,7 +69,7 @@ class PyEon():
             vYear = vYearClass
             monthThirtyOneDays = [1, 3, 5, 7, 8, 10, 12]
             monthThirtyDays = [4, 6, 9, 11] 
-            cDays = 0
+            cDays = vDayClass - 1
  
             while i <= abs(self._Increment):
                 if self._Increment < 0:
@@ -99,12 +99,12 @@ class PyEon():
                 if calendar.isleap(vYear) == True and vMonth== 2:
                     cDays =  cDays + 29
  
-                elif calendar.isleap(vMonth) == False and vMonth == 2:
+                elif calendar.isleap(vYear) == False and vMonth == 2:
                     cDays =  cDays + 28
                 i = i + 1
  
             if self._Increment < 0:
-                interDate = self._Date + timedelta(days=(cDays * -1))
+                interDate = self._Date - timedelta(days=(cDays))
             elif self._Increment > 0:
                 interDate = self._Date + timedelta(days=(cDays))
             else:
