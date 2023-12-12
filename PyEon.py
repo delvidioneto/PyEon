@@ -1,5 +1,4 @@
 # -*- coding: latin-1 -*-
-
 from datetime import date, datetime, timedelta
 import calendar
 
@@ -22,7 +21,8 @@ class PyEon():
 
     """
 
-    def __init__(self, Interval: str, Date: date | str, Increment: int, Alignment: str):
+    def __init__(self, Interval: str, Date: date | str, Increment: int,
+                 Alignment: str):
 
         self._Interval = Interval
         self._Increment = Increment
@@ -121,15 +121,7 @@ class PyEon():
         """ getAnoMes: Método que trás o ano mês """
 
         vData = self.getDates()
-
-        ano = str(vData.year)
-
-        if vData.month < 10:
-            mes = "0"+str(vData.month)
-        else:
-            mes = str(vData.month)
-
-        anomes = ano+mes
+        anomes = int(vData.strftime("%Y%m"))
 
         return int(anomes)
 
