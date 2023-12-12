@@ -14,10 +14,13 @@ class PyEon():
     PyEon(Interval, Date, Increment, Alignment)
 
     Atributos: 
-        Interval (str): Intervalo do periodo de calculo (Year: ano, Month: Mês, Day: Dias).
-        Date (date ou str): Data de referência de calculo no formado yyyy-mm-dd.
+        Interval (str): Intervalo do periodo de calculo (Year: ano, Month: Mês,
+        Day: Dias).
+        Date (date ou str): Data de referência de calculo no formado
+        yyyy-mm-dd.
         Increment: Incremento de calculo, número inteiro positivo ou negativo.
-        Alignment: Alinhamento da data (B: Primeiro dia do mês, E: Ultimo dia do mês e S: Mesmo dia de referencia).
+        Alignment: Alinhamento da data (B: Primeiro dia do mês,
+        E: Ultimo dia do mês e S: Mesmo dia de referencia).
 
     """
 
