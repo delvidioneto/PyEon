@@ -10,8 +10,8 @@ class PyEon():
 
     - Created By: Delvidio Demarchi Neto
     - Created Date: 03/04/2023
-    - Laste Update: 14/08/2023
-    - Version: '2.0.0'
+    - Laste Update: 17/02/2024
+    - Version: '1.0.3'
 
     PyEon(Interval, Date, Increment, Alignment)
 
@@ -154,22 +154,3 @@ class PyEon():
         getYearMonth = int(vData.strftime("%Y%m"))
 
         return int(getYearMonth)
-
-
-if __name__ == "__main__":
-
-    dia_atual = date(day=28, month=12, year=2023)  # date.today()
-    print('Dia Atual:', dia_atual)
-    print("")
-
-    # Um mês a frente da data atual com a data inicial do mês
-
-    # M1 = PyEon('day', dia_atual, -6, 'S').getDates()
-    # M1_anomes = PyEon('MONTH', dia_atual, 1, 'B').getYearMonth()
-    day = PyEon('DAY', dia_atual, 3, 'S').getDates()
-    bd = PyEon('BDAY', dia_atual, 3, 'S', "BR", "SP").getDates()
-
-    # print('M1_dia:', M1)
-    # print('M1_anomes:', M1_anomes)
-    print('Três dias a frente:', day)
-    print('Três dias Uteis frente:', bd)
