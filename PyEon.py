@@ -120,13 +120,13 @@ class PyEon():
 
         return vInterDate
 
-    def getAnoMes(self) -> int:
+    def getYearMonth(self) -> int:
         """ getAnoMes: Método que trás o ano mês """
 
         vData = self.getDates()
-        anomes = int(vData.strftime("%Y%m"))
+        getYearMonth = int(vData.strftime("%Y%m"))
 
-        return int(anomes)
+        return int(getYearMonth)
 
 
 if __name__ == "__main__":
@@ -135,10 +135,10 @@ if __name__ == "__main__":
     print('Dia Atual:', dia_atual)
     print("")
 
-    # # Um mês a frente da data atual com a data inicial do mês
+    # Um mês a frente da data atual com a data inicial do mês
 
     M1 = PyEon('MONTH', dia_atual, 3, 'B').getDates()
-    M1_anomes = PyEon('MONTH', dia_atual, 1, 'B').getAnoMes()
+    M1_anomes = PyEon('MONTH', dia_atual, 1, 'B').getYearMonth()
 
     print('M1_dia:', M1)
     print('M1_anomes:', M1_anomes)

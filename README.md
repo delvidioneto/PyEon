@@ -1,38 +1,48 @@
 # PyEon
-Função pratica para manipulação de datas.
 
-Exemplo de utilização:
+This package was developed to simplify date manipulation.
 
-### Importando os pacotes e criando a variavem de dia atual para manipulação.
+How to use?
+
+### Importing the packages and creating the current day variable for manipulation.
+###### (Importando os pacotes e criando a variavem de dia atual para manipulação.)
 
 ```
 import PyEon.PyEon as pe
 from datetime import date 
 
-dia_atual = date.today()
-print('Dia Atual:', dia_atual)
+current_day = date.today()
+print('Current day:', current_day)
+
 ```
 
-### Um mês a frente da data atual com a data inicial do mês
-```
-M1 = pe.PyEon('MONTH', dia_atual, 1,'B').getDates()
-M1_anomes = pe.PyEon('MONTH',dia_atual, 1,'B').getAnoMes()
+### One month ahead of the current date with the start date of the month
+###### (Um mês a frente da data atual com a data inicial do mês)
 
-print('M1_dia:', M1)
-print('M1_anomes:', M1_anomes)
 ```
-#### Mesmo dia 12 meses anteriores a data atual
-```
-M12 = pe.PyEon('MONTH', dia_atual, -12,'S').getDates()
-M12_anomes = pe.PyEon('MONTH',dia_atual, -12,'S').getAnoMes()
+M1 = pe.PyEon('MONTH', current_day, 1,'B').getDates()
+M1_yearMonth = pe.PyEon('MONTH',current_day, 1,'B').getYearMonth()
 
 print('M1_dia:', M1)
-print('M1_anomes:', M1_anomes)
+print('M1_yearMonth:', M1_yearMonth)
 ```
 
-#### 2 anos anterior da data atual com o ultimo dia do mês
+### Same day 12 months previous to current date
+###### Mesmo dia 12 meses anteriores a data atual
+
 ```
-Y2 = pe.PyEon('YEAR', dia_atual, -2,'E').getDates()
-Y2_anomes = pe.PyEon('YEAR',dia_atual, -2,'E').getAnoMes()
+M12 = pe.PyEon('MONTH', current_day, -12,'S').getDates()
+M12_yearMonth = pe.PyEon('MONTH',current_day, -12,'S').getyearMonth()
+
+print('M1_dia:', M1)
+print('M1_yearMonth:', M1_yearMonth)
+```
+
+### 2 years previous to the current date with the last day of the month
+###### 2 anos anterior da data atual com o ultimo dia do mês
+
+```
+Y2 = pe.PyEon('YEAR', current_day, -2,'E').getDates()
+Y2_yearMonth = pe.PyEon('YEAR',current_day, -2,'E').getyearMonth()
 
 ```
