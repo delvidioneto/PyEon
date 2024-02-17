@@ -24,7 +24,7 @@ class PyEon():
 
     """
 
-    def __init__(self, Interval: str, Date: date | str, Increment: int,
+    def __init__(self, Interval: str, Date: date, Increment: int,
                  Alignment: str):
 
         self._Interval = Interval
@@ -32,7 +32,7 @@ class PyEon():
         self._Alignment = Alignment
         self._EndDate = ''
 
-        if type(Date) == str:
+        if isinstance(Date, str) is True:
             self._Date = datetime.strptime(Date, '%Y-%m-%d')
         else:
             self._Date = datetime.combine(Date, datetime.min.time())
@@ -44,7 +44,7 @@ class PyEon():
         vMonthClass = self._Date.month
         vYearClass = self._Date.year
 
-        def __getAlignment(vYearMeth: int, vMonthMeth: int, vDayMeth: int) -> date:
+        def __getAlignment(vYearMeth: int, vMonthMeth: int, vDayMeth: int):
 
             if self._Alignment.upper() == "B":
                 vDateMeth = date(vYearMeth, vMonthMeth, 1)
