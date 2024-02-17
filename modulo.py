@@ -5,15 +5,15 @@ import holidays
 from dateutil.relativedelta import relativedelta
 
 
-class PyEon():
-    """Pacote para manipulação de datas. - PyEon
+class bonniebully():
+    """Pacote para manipulação de datas. - bonniebully
 
     - Created By: Delvidio Demarchi Neto
     - Created Date: 03/04/2023
     - Laste Update: 17/02/2024
     - Version: '1.0.3'
 
-    PyEon(Interval, Date, Increment, Alignment)
+    bonniebully(Interval, Date, Increment, Alignment)
 
     Atributos: 
         Interval (str): Intervalo do periodo de calculo (Year: ano, Month: Mês,
@@ -53,8 +53,6 @@ class PyEon():
         """ getDates: Método que retorna o dia no formato YYYY-MM-DD """
 
         vDayClass = self._Date.day
-        vMonthClass = self._Date.month
-        vYearClass = self._Date.year
 
         def __getAlignment(vYearMeth: int, vMonthMeth: int, vDayMeth: int):
 
