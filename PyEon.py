@@ -1,6 +1,8 @@
 # -*- coding: latin-1 -*-
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 import calendar
+import holidays
+from dateutil.relativedelta import relativedelta
 
 
 class PyEon():
@@ -15,21 +17,31 @@ class PyEon():
 
     Atributos: 
         Interval (str): Intervalo do periodo de calculo (Year: ano, Month: Mês,
-        Day: Dias).
+        Day: Dias, Bday: Dias Uteis.).
         Date (date ou str): Data de referência de calculo no formado
         yyyy-mm-dd.
         Increment: Incremento de calculo, número inteiro positivo ou negativo.
         Alignment: Alinhamento da data (B: Primeiro dia do mês,
         E: Ultimo dia do mês e S: Mesmo dia de referencia).
 
+        Caso utilize dia Util:
+
+        Country: Pais de deseja consultar o dia util
+        State: Caso seja necessario localizar o estado
+        Weekend: False Sabado não é dia util, True Sabado é dia util
+
+
     """
 
     def __init__(self, Interval: str, Date: date, Increment: int,
-                 Alignment: str):
+                 Alignment: str, County: str = "", State: str = "", Weekend: bool = False):
 
         self._Interval = Interval
         self._Increment = Increment
         self._Alignment = Alignment
+        self._Contry = County
+        self._State = State
+        self._Weekend = Weekend
         self._EndDate = ''
 
         if isinstance(Date, str) is True:
@@ -57,66 +69,81 @@ class PyEon():
                 vDateMeth = date(vYearMeth, vMonthMeth, endOfMonth[1])
             return vDateMeth
 
-        if self._Interval.upper() == "YEAR":
+        def __checkNegative(value: int):
+            if value < 0:
+                check = True
+            else:
+                check = False
+            return check
 
-            vInterYear = abs(vYearClass + (self._Increment))
-            vGetDate = __getAlignment(vInterYear, vMonthClass, vDayClass)
+        def __getYear():
 
+            vInterYear = self._Date + relativedelta(years=self._Increment)
+            vGetDate = __getAlignment(
+                vInterYear.year, vInterYear.month, vDayClass)
             vInterDate = date(vGetDate.year, vGetDate.month, vGetDate.day)
 
-        elif self._Interval.upper() == "MONTH":
-            i = 1
-            vMonth = vMonthClass
-            vYear = vYearClass
-            monthThirtyOneDays = [1, 3, 5, 7, 8, 10, 12]
-            monthThirtyDays = [4, 6, 9, 11]
-            cDays = 0
+            return vInterDate
 
-            while i <= abs(self._Increment):
-                if self._Increment < 0:
-                    if vMonth == 1:
-                        vMonth = 13
-                        vYear = vYear - 1
-                    vMonth = vMonth - 1
-                else:
-                    if vMonth == 12:
-                        vMonth = 0
-                        vYear = vYear + 1
-                    vMonth = vMonth + 1
+        def __getMonth():
 
-                if vMonth in monthThirtyDays:
-                    cDays = cDays + 30
+            vInterMonth = self._Date + relativedelta(months=self._Increment)
+            vGetDate = __getAlignment(
+                vInterMonth.year, vInterMonth.month, vDayClass)
+            vInterDate = date(vGetDate.year, vGetDate.month, vGetDate.day)
+            return vInterDate
 
-                elif vMonth in monthThirtyOneDays:
-                    cDays = cDays + 31
+        def __getDay(Increment: int):
+            vInterDay = self._Date + relativedelta(days=Increment)
 
-                # Valida ano Bissexto
-                elif calendar.isleap(vYear) is True and vMonth == 2:
-                    cDays = cDays + 29
+            vGetDate = __getAlignment(
+                vInterDay.year, vInterDay.month, vInterDay.day)
+            vInterDate = date(vGetDate.year, vGetDate.month, vGetDate.day)
+            return vInterDate
 
-                elif calendar.isleap(vYear) is False and vMonth == 2:
-                    cDays = cDays + 28
-                i = i + 1
+        def __getBDay(vDate: date, vContry: str, vState: str):
 
-            if self._Increment < 0:
-                interDate = self._Date - timedelta(days=(cDays))
-            elif self._Increment > 0:
-                interDate = self._Date + timedelta(days=(cDays))
+            vHoliday = holidays.country_holidays(
+                vContry, subdiv=vState).get(vDate)
+
+            if vHoliday is not None or (self._Weekend is False and vDate.weekday() > 5):
+                vBday = 1
+            elif vHoliday is not None or (self._Weekend is True and vDate.weekday() == 6):
+                vBday = 1
             else:
-                interDate = self._Date
+                vBday = 0
 
-            vInterDate = __getAlignment(
-                interDate.year, interDate.month, interDate.day)
+            return vBday
 
-            # elif vIinterval.upper() == "WEEK":
-            #     pass
+        if self._Interval.upper() == "YEAR":
+            vInterDate = __getYear()
+
+        elif self._Interval.upper() == "MONTH":
+            vInterDate = __getMonth()
 
         elif self._Interval.upper() == "DAY":
+            vInterDate = __getDay(self._Increment)
 
-            interDate = self._Date + timedelta(days=self._Increment)
+        elif self._Interval.upper() == "BDAY":
 
-            vInterDate = __getAlignment(
-                interDate.year, interDate.month, interDate.day)
+            checkNegativeIncrement = __checkNegative(self._Increment)
+            Increment = self._Increment
+            rBday = 1
+            vBusinessDay = None
+
+            while rBday != 0:
+
+                vDate = __getDay(Increment)
+                rBday = __getBDay(vDate, self._Contry, self._State)
+
+                if checkNegativeIncrement is True:
+                    Increment -= 1
+                else:
+                    Increment += 1
+
+                vBusinessDay = vDate
+
+            vInterDate = vBusinessDay
 
         return vInterDate
 
@@ -131,15 +158,18 @@ class PyEon():
 
 if __name__ == "__main__":
 
-    dia_atual = date.today()
+    dia_atual = date(day=28, month=12, year=2023)  # date.today()
     print('Dia Atual:', dia_atual)
     print("")
 
     # Um mês a frente da data atual com a data inicial do mês
 
-    M1 = PyEon('MONTH', dia_atual, 3, 'B').getDates()
-    M1_anomes = PyEon('MONTH', dia_atual, 1, 'B').getYearMonth()
+    # M1 = PyEon('day', dia_atual, -6, 'S').getDates()
+    # M1_anomes = PyEon('MONTH', dia_atual, 1, 'B').getYearMonth()
+    day = PyEon('DAY', dia_atual, 3, 'S').getDates()
+    bd = PyEon('BDAY', dia_atual, 3, 'S', "BR", "SP").getDates()
 
-    print('M1_dia:', M1)
-    print('M1_anomes:', M1_anomes)
-    print("")
+    # print('M1_dia:', M1)
+    # print('M1_anomes:', M1_anomes)
+    print('Três dias a frente:', day)
+    print('Três dias Uteis frente:', bd)
