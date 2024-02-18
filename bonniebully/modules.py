@@ -3,15 +3,16 @@ from datetime import date, datetime
 import calendar
 import holidays
 from dateutil.relativedelta import relativedelta
-
-
-class bonniebully():
-    """Pacote para manipulação de datas. - bonniebully
-
+"""
     - Created By: Delvidio Demarchi Neto
     - Created Date: 03/04/2023
     - Laste Update: 17/02/2024
     - Version: '1.0.3'
+"""
+
+
+class intdate():
+    """Pacote para manipulação de datas. - bonniebully
 
     bonniebully(Interval, Date, Increment, Alignment)
 
@@ -29,8 +30,6 @@ class bonniebully():
         Country: Pais de deseja consultar o dia util
         State: Caso seja necessario localizar o estado
         Weekend: False Sabado não é dia util, True Sabado é dia util
-
-
     """
 
     def __init__(self, Interval: str, Date: date, Increment: int,
